@@ -15,9 +15,10 @@ RUN addgroup --system --gid 1001 byd && \
     chown -R byd:byd /app
 USER byd
 
-# Health check (MCP server responds to SSE requests)
+# Health check: verify the MCP server process is alive and responding
+# Uses a simple TCP connection check since MCP uses SSE, not REST
 HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
-    CMD python3 -c "import urllib.request; r=urllib.request.urlopen('http://localhost:8000/health'); assert r.status == 200" || exit 1
+    CMD python3 -c "import socket; s=socket.create_connection(('localhost', ${BYD_PORT:-8000}), timeout=5); s.close()" || exit 1
 
 EXPOSE 8000
 

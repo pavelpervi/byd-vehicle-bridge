@@ -30,6 +30,7 @@ _logger = logging.getLogger("byd-bridge")
 
 POLL_INTERVAL = int(os.getenv("POLL_INTERVAL", "60"))
 BRIDGE_MODE = os.getenv("BYD_MODE", "minimal").strip().lower()
+BYD_PORT = int(os.getenv("BYD_PORT", "8000"))
 
 if BRIDGE_MODE not in ("minimal", "full"):
     _logger.warning("Unknown BYD_MODE=%r, falling back to 'minimal'", BRIDGE_MODE)
@@ -49,8 +50,6 @@ class BridgeState:
         self.last_poll: str | None = None
         self.connected: bool = False
         self.error: str | None = None
-        self._lock = asyncio.Lock()
-
     async def update(self) -> None:
         """Poll the BYD API and update cached state."""
         config = BydConfig(

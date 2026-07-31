@@ -14,7 +14,8 @@ services:
     networks:
       - byd-internal
     healthcheck:
-      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      # TCP check: MCP server uses SSE, not REST — no HTTP endpoint
+      test: ["CMD", "python3", "-c", "import os,socket; s=socket.create_connection(('localhost', int(os.environ.get('BYD_PORT','8000'))), timeout=5); s.close()"]
       interval: 30s
       timeout: 10s
       start_period: 15s
