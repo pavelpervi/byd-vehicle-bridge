@@ -1,0 +1,37 @@
+version: "3.8"
+
+services:
+  byd-bridge:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: byd-bridge
+    restart: unless-stopped
+    env_file:
+      - .env
+    # No ports published to host — MCP server is only reachable on the internal Docker network
+    # OpenClaw connects to it as an MCP client via the same network
+    networks:
+      - byd-internal
+    healthcheck:
+      test: ["CMD", "python3", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8000/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 15s
+      retries: 3
+    # Security: minimal attack surface
+    read_only: true
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+
+networks:
+  byd-internal:
+    name: byd-internal
+    driver: bridge
+    # NOT internal: bridge needs internet access to reach BYD cloud API
+    # Security: no ports published to host, so only containers on this network can reach it
+    ipam:
+      config:
+        - subnet: 172.28.0.0/16

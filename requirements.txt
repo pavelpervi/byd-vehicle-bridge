@@ -1,0 +1,3 @@
+mcp>=1.0.0
+pybyd>=0.0.73
+python-dotenv>=1.0.0
