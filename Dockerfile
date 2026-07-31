@@ -6,11 +6,12 @@ WORKDIR /app
 COPY requirements.txt .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy bridge code
-COPY app.py .
+# Copy package source
+COPY src/ ./src/
 
 # Document runtime defaults (overridable via env_file or -e)
 ENV BYD_PORT=8000
+ENV PYTHONPATH=/app/src
 
 # Create non-root user
 RUN addgroup --system --gid 1001 byd && \
@@ -26,4 +27,4 @@ HEALTHCHECK --interval=30s --timeout=10s --start-period=15s --retries=3 \
 EXPOSE 8000
 
 # Run MCP server with SSE transport
-CMD ["python3", "app.py"]
+CMD ["python3", "-m", "byd_bridge"]
