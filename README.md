@@ -3,6 +3,7 @@
 [![Python](https://img.shields.io/badge/python-3.12-blue.svg)](https://www.python.org/)
 [![MCP](https://img.shields.io/badge/MCP-Model%20Context%20Protocol-purple)](https://modelcontextprotocol.io)
 [![Docker](https://img.shields.io/badge/docker-ready-2496ed.svg)](https://docker.com)
+[![Tests](https://github.com/pavelpervi/byd-vehicle-bridge/actions/workflows/tests.yml/badge.svg)](https://github.com/pavelpervi/byd-vehicle-bridge/actions/workflows/tests.yml)
 [![License](https://img.shields.io/badge/license-MIT-green.svg)](LICENSE)
 
 A secure, read-only **MCP (Model Context Protocol) server** that connects to your **BYD electric vehicle** via the BYD cloud API. Designed for AI agents (like OpenClaw, Claude Code, or any MCP client) to query real-time vehicle data — battery SOC, range, tire pressures, door states, GPS, and more — while keeping your credentials safe on your own infrastructure.
