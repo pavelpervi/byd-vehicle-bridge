@@ -55,7 +55,7 @@ class BridgeState:
         """Poll the BYD API and update cached state."""
         config = BydConfig(
             username=os.environ["BYD_USERNAME"],
-            password=***"BYD_PASSWORD"],
+            password=os.environ["BYD_PASSWORD"],
             country_code=os.environ.get("BYD_COUNTRY", "IL"),
             language=os.environ.get("BYD_LANG", "en"),
             time_zone=os.environ.get("TZ", "Asia/Jerusalem"),
