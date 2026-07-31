@@ -9,6 +9,9 @@ RUN pip install --no-cache-dir -r requirements.txt
 # Copy bridge code
 COPY app.py .
 
+# Document runtime defaults (overridable via env_file or -e)
+ENV BYD_PORT=8000
+
 # Create non-root user
 RUN addgroup --system --gid 1001 byd && \
     adduser --system --uid 1001 --ingroup byd byd && \
