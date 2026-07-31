@@ -28,9 +28,9 @@ mcp = MCPServer(
     title="BYD Vehicle Bridge",
     instructions=(
         "MCP server for BYD electric vehicle data. "
-        f"Current mode: {settings.mode}. "
-        "Use get_battery() for SOC and driving basics in any mode. "
-        "Use get_all_data() for full telemetry in 'full' mode."
+        "Use get_battery() for SOC and driving basics. "
+        "Use get_all_data() for full telemetry. "
+        "Use get_health() to check current mode and connection status."
     ),
     version="1.0.0",
 )
